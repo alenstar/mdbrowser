@@ -9,12 +9,16 @@ char master_css[] =
 
 int main (int argc, char *argv[])
 {
-	Glib::RefPtr<Gtk::Application> app = Gtk::Application::create(argc, argv, "markdown.browser");
+    int iargc = 1;
+	Glib::RefPtr<Gtk::Application> app = Gtk::Application::create(iargc, argv, "markdown.browser");
 
 	litehtml::context html_context;
 	html_context.load_master_stylesheet(master_css);
 
-	browser_window win(&html_context, argc, (const char**)argv);
-
+	browser_window win(&html_context);
+    if(argc > 1 && argv != NULL) {
+        std::string file = std::string(argv[1]);
+        win.open_url(file);
+    }
 	return app->run(win);
 }
