@@ -1,94 +1,133 @@
-#include "logdef.h"
-#include "globals.h"
 #include "browser_wnd.h"
+#include "globals.h"
+#include "logdef.h"
 #include <gdk/gdkkeysyms.h>
 
-browser_window::browser_window(litehtml::context* html_context) : m_html(html_context, this)//, m_go_button("_Go", true)
+browser_window::browser_window(litehtml::context *html_context)
+    : m_html(html_context, this) //, m_go_button("_Go", true)
 {
-	set_title("Markdown browser");
+    set_title("Markdown browser");
 
-	add(m_vbox);
-	m_vbox.show();
+    add(m_vbox);
+    m_vbox.show();
 
-	m_menuitem_open.set_label("Open");
-	m_submenu_file.append(m_menuitem_open);
-	m_menuitem_save.set_label("Save");
-	m_submenu_file.append(m_menuitem_save);
-	m_menuitem_save_as.set_label("Save As ...");
-	m_submenu_file.append(m_menuitem_save_as);
-	m_menuitem_exit.set_label("Exit");
-	m_submenu_file.append(m_menuitem_exit);
+    m_menuitem_open.set_label("Open");
+    m_menuitem_open.signal_activate().connect(
+        sigc::mem_fun(*this, &browser_window::on_file_open));
+    m_submenu_file.append(m_menuitem_open);
+    m_menuitem_save.set_label("Save");
+    m_menuitem_save.signal_activate().connect(
+        sigc::mem_fun(*this, &browser_window::on_file_save));
+    m_submenu_file.append(m_menuitem_save);
+    m_menuitem_save_as.set_label("Save As ...");
+    m_menuitem_save_as.signal_activate().connect(
+        sigc::mem_fun(*this, &browser_window::on_file_save_as));
+    m_submenu_file.append(m_menuitem_save_as);
+    m_menuitem_exit.set_label("Exit");
+    m_menuitem_exit.signal_activate().connect(
+        sigc::mem_fun(*this, &browser_window::on_file_exit));
+    m_submenu_file.append(m_menuitem_exit);
 
-	m_menuitem_file.set_label("File");
-	m_menuitem_file.set_submenu(m_submenu_file);
-	m_menubar.append(m_menuitem_file);
+    m_menuitem_file.set_label("File");
+    m_menuitem_file.set_submenu(m_submenu_file);
+    m_menubar.append(m_menuitem_file);
 
-	m_menuitem_doc.set_label("Documents");
-	m_submenu_help.append(m_menuitem_doc);
-	m_menuitem_about.set_label("About");
-	m_submenu_help.append(m_menuitem_about);
+    m_menuitem_doc.set_label("Documents");
+    m_submenu_help.append(m_menuitem_doc);
+    m_menuitem_about.set_label("About");
+    m_submenu_help.append(m_menuitem_about);
 
-	m_menuitem_help.set_label("Help");
-	m_menuitem_help.set_submenu(m_submenu_help);
-	m_menubar.append(m_menuitem_help);
+    m_menuitem_help.set_label("Help");
+    m_menuitem_help.set_submenu(m_submenu_help);
+    m_menubar.append(m_menuitem_help);
 
-	m_vbox.pack_start(m_menubar, Gtk::PACK_SHRINK);
-	m_menubar.show_all();
+    m_vbox.pack_start(m_menubar, Gtk::PACK_SHRINK);
+    m_menubar.show_all();
 
-	//m_vbox.pack_start(m_hbox, Gtk::PACK_SHRINK);
-	//m_hbox.show();
+    // m_vbox.pack_start(m_hbox, Gtk::PACK_SHRINK);
+    // m_hbox.show();
 
-	//m_hbox.pack_start(m_address_bar, Gtk::PACK_EXPAND_WIDGET);
-	//m_address_bar.show();
-	//m_address_bar.set_text((argc > 1 && argv != NULL) ? argv[1]:"../README.md");
+    // m_hbox.pack_start(m_address_bar, Gtk::PACK_EXPAND_WIDGET);
+    // m_address_bar.show();
+    // m_address_bar.set_text((argc > 1 && argv != NULL) ?
+    // argv[1]:"../README.md");
 
-	//m_address_bar.add_events(Gdk::KEY_PRESS_MASK);
-	//m_address_bar.signal_key_press_event().connect( sigc::mem_fun(*this, &browser_window::on_address_key_press), false );
+    // m_address_bar.add_events(Gdk::KEY_PRESS_MASK);
+    // m_address_bar.signal_key_press_event().connect( sigc::mem_fun(*this,
+    // &browser_window::on_address_key_press), false );
 
-	//m_go_button.signal_clicked().connect( sigc::mem_fun(*this, &browser_window::on_go_clicked) );
+    // m_go_button.signal_clicked().connect( sigc::mem_fun(*this,
+    // &browser_window::on_go_clicked) );
 
-	//m_hbox.pack_start(m_go_button, Gtk::PACK_SHRINK);
-	//m_go_button.show();
+    // m_hbox.pack_start(m_go_button, Gtk::PACK_SHRINK);
+    // m_go_button.show();
 
-	m_vbox.pack_start(m_scrolled_wnd, Gtk::PACK_EXPAND_WIDGET);
-	m_scrolled_wnd.show();
+    m_vbox.pack_start(m_scrolled_wnd, Gtk::PACK_EXPAND_WIDGET);
+    m_scrolled_wnd.show();
 
-	m_scrolled_wnd.add(m_html);
-	m_html.show();
+    m_scrolled_wnd.add(m_html);
+    m_html.show();
 
     set_default_size(800, 600);
 }
 
-browser_window::~browser_window()
-{
+browser_window::~browser_window() {}
 
+void browser_window::on_go_clicked() {
+    litehtml::tstring url = m_address_bar.get_text();
+    m_html.open_page(url);
 }
 
-void browser_window::on_go_clicked()
-{
-	litehtml::tstring url = m_address_bar.get_text();
-	m_html.open_page(url);
+bool browser_window::on_address_key_press(GdkEventKey *event) {
+    if (event->keyval == GDK_KEY_Return) {
+        m_address_bar.select_region(0, -1);
+        on_go_clicked();
+        return true;
+    }
+
+    return false;
 }
 
-bool browser_window::on_address_key_press(GdkEventKey* event)
-{
-	if(event->keyval == GDK_KEY_Return)
-	{
-		m_address_bar.select_region(0, -1);
-		on_go_clicked();
-		return true;
-	}
-
-	return false;
+void browser_window::open_url(const litehtml::tstring &url) {
+    // m_address_bar.set_text(url);
+    m_html.open_page(url);
 }
 
-void browser_window::open_url(const litehtml::tstring &url)
-{
-	// m_address_bar.set_text(url);
-	m_html.open_page(url);
+void browser_window::set_url(const litehtml::tstring &url) {
+    m_address_bar.set_text(url);
 }
 
-void browser_window::set_url(const litehtml::tstring &url)
-{
-	m_address_bar.set_text(url);
+void browser_window::on_file_open() {
+    Gtk::FileChooserDialog dialog("Please choose a file",
+                                  Gtk::FILE_CHOOSER_ACTION_OPEN);
+    // Add response buttons the the dialog:
+    dialog.add_button( Gtk::Stock::CANCEL, Gtk::RESPONSE_CANCEL );
+    dialog.add_button( Gtk::Stock::OPEN, Gtk::RESPONSE_OK );
+
+    //Add filters, so that only certain file types can be selected:
+    Glib::RefPtr<Gtk::FileFilter> filter_md = Gtk::FileFilter::create();
+    filter_md->set_name( "Markdown files" );
+    filter_md->add_pattern( "*.md" );
+    dialog.add_filter( filter_md );
+
+    //Show the dialog and wait for a user response:
+    int result = dialog.run();
+        //Handle the response:
+    switch( result )
+    {
+        case( Gtk::RESPONSE_OK ):{
+            //Notice that this is a std::string, not a Glib::ustring.
+            std::string filename = dialog.get_filename(  );
+            open_url(filename);
+            break;
+        }
+        case( Gtk::RESPONSE_CANCEL ): {
+            LOGD("Cancel clicked.");
+            break;
+        }
+        default: { LOGE("Unexpected button clicked."); break; }
+    }
 }
+void browser_window::on_file_exit() { this->close() ; }
+void browser_window::on_file_save() { LOGD("on_file_open"); }
+void browser_window::on_file_save_as() { LOGD("on_file_open"); }

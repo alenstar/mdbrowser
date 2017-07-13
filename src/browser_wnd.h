@@ -14,7 +14,10 @@ public:
 private:
     void on_go_clicked();
     bool on_address_key_press(GdkEventKey* event);
-
+    void on_file_open();
+    void on_file_exit();
+	void on_file_save();
+	void on_file_save_as();
 protected:
 	html_widget			m_html;
 	Gtk::Entry			m_address_bar;
