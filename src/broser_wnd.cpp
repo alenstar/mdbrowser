@@ -45,7 +45,12 @@ browser_window::browser_window(litehtml::context *html_context)
     m_menubar.show_all();
 
 
-
+    m_source_view.set_show_line_numbers(true);
+    m_source_view.set_auto_indent(true);
+    m_source_view.set_indent_on_tab(false);
+    m_source_view.set_tab_width(4);
+    m_source_view.set_indent_width(4);
+    m_source_view.set_insert_spaces_instead_of_tabs(true);
     m_vbox.pack_start(m_scrolled_sv, Gtk::PACK_EXPAND_WIDGET);
     m_scrolled_sv.show();
     m_scrolled_sv.add(m_source_view);
