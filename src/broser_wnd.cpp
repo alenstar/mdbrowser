@@ -44,9 +44,27 @@ browser_window::browser_window(litehtml::context *html_context)
     m_vbox.pack_start(m_menubar, Gtk::PACK_SHRINK);
     m_menubar.show_all();
 
-    // m_vbox.pack_start(m_hbox, Gtk::PACK_SHRINK);
-    // m_hbox.show();
 
+
+    m_vbox.pack_start(m_scrolled_sv, Gtk::PACK_EXPAND_WIDGET);
+    m_scrolled_sv.show();
+    m_scrolled_sv.add(m_source_view);
+    m_source_view.show();
+    m_buffer = m_source_view.get_source_buffer () ;
+    if (!m_buffer) {
+        LOGE("Gsv::View::get_source_buffer () failed");
+    }
+/*
+    m_vbox.pack_start(m_hbox, Gtk::PACK_SHRINK);
+    m_hbox.show();
+
+	m_hbox.pack_start(m_source_view, Gtk::PACK_EXPAND_WIDGET);
+	m_source_view.show();
+	m_buffer = m_source_view.get_source_buffer () ;
+    if (!m_buffer) {
+        LOGE("Gsv::View::get_source_buffer () failed");
+    }
+*/
     // m_hbox.pack_start(m_address_bar, Gtk::PACK_EXPAND_WIDGET);
     // m_address_bar.show();
     // m_address_bar.set_text((argc > 1 && argv != NULL) ?
@@ -62,10 +80,10 @@ browser_window::browser_window(litehtml::context *html_context)
     // m_hbox.pack_start(m_go_button, Gtk::PACK_SHRINK);
     // m_go_button.show();
 
-    m_vbox.pack_start(m_scrolled_wnd, Gtk::PACK_EXPAND_WIDGET);
-    m_scrolled_wnd.show();
+    m_vbox.pack_start(m_scrolled_md, Gtk::PACK_EXPAND_WIDGET);
+    m_scrolled_md.show();
 
-    m_scrolled_wnd.add(m_html);
+    m_scrolled_md.add(m_html);
     m_html.show();
 
     set_default_size(800, 600);

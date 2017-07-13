@@ -1,5 +1,5 @@
 #pragma once
-
+#include <gtksourceviewmm.h>
 #include "html_widget.h"
 
 class browser_window : public Gtk::Window
@@ -35,6 +35,10 @@ protected:
 	Gtk::MenuItem		m_menuitem_about;
 	Gtk::MenuItem		m_menuitem_help;
 	Gtk::MenuItem		m_menuitem_doc;
-	Gtk::ScrolledWindow m_scrolled_wnd;
+	Gtk::ScrolledWindow m_scrolled_md;
+	Gtk::ScrolledWindow m_scrolled_sv;
+
+	Gsv::View 			m_source_view ;
+	Glib::RefPtr<Gsv::Buffer> 		m_buffer;
 };
 
