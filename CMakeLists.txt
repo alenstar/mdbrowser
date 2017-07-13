@@ -27,9 +27,10 @@ set(SOURCE  ${LITEBROWSER_PATH}/main.cpp
             ${LITEBROWSER_PATH}/broser_wnd.cpp
     )
 
-include_directories(${LITEHTML_PATH}/include ${LB_LIBS_INCLUDE_DIRS})
+include_directories(${LITEHTML_PATH}/include ${LB_LIBS_INCLUDE_DIRS} MaDown/src)
 
 add_subdirectory(${LITEHTML_PATH})
+add_subdirectory(MaDown)
 
 find_program(XXD_COMMAND xxd)
 add_custom_command(OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/src/master.css.inc
@@ -38,5 +39,5 @@ set_source_files_properties(${CMAKE_CURRENT_SOURCE_DIR}/src/master.css.inc PROPE
 
 add_executable(litebrowser ${SOURCE} ${CMAKE_CURRENT_SOURCE_DIR}/src/master.css.inc src/http_loader.h src/http_loader.cpp)
 
-target_link_libraries(litebrowser litehtml ${LB_LIBS_LIBRARIES} PocoFoundation)
+target_link_libraries(litebrowser litehtml MaDown ${LB_LIBS_LIBRARIES} PocoFoundation)
 
