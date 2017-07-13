@@ -32,6 +32,9 @@ namespace md {
         case TOK_CODE:
           block = parse_code_block();
           break;
+        case TOK_HORIZONTAL_RULE:
+          block = make_unique<HorizontalRule>(parse_line());
+          break;
         default:
           block = make_unique<TopText>(parse_line());
       }

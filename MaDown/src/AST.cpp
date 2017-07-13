@@ -24,4 +24,6 @@ namespace md {
 
   STNODE_ACCEPT_VISITOR_IMPL(TopText);
 
+  STNODE_ACCEPT_VISITOR_IMPL(HorizontalRule);
+
 }

@@ -23,6 +23,8 @@ namespace md {
     RENDER_VISIT_DECL(Code);
 
     RENDER_VISIT_DECL(TopText);
+
+    RENDER_VISIT_DECL(HorizontalRule);
   };
 
 } // namespace md

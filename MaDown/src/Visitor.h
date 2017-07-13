@@ -24,6 +24,8 @@ namespace md {
     VISITOR_VISIT_DECL(Code);
 
     VISITOR_VISIT_DECL(TopText);
+
+    VISITOR_VISIT_DECL(HorizontalRule);
   };
 
 } // namespace md

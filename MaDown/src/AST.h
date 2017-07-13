@@ -95,5 +95,11 @@ namespace md {
 
     STNODE_ACCEPT_VISITOR_DECL();
   };
+  struct HorizontalRule : public STNode {
+    vector<unique_ptr<Text>> elements;
 
+    HorizontalRule(vector<unique_ptr<Text>> ele) : elements(std::move(ele)) {}
+
+    STNODE_ACCEPT_VISITOR_DECL();
+  };
 } // namespace md

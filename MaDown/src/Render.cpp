@@ -84,4 +84,13 @@ namespace md {
     return "<p>" + content + "</p>";
   }
 
+  string Render::visit(HorizontalRule *p) {
+    //string content;
+
+    // for (auto &&textPtr : p->elements) {
+    //   content += textPtr->accept(this);
+    // }
+
+    return "<hr style=\"height:2px;border:none;border-top:1px solid #ccc;\" />";
+  }
 } // namespace md

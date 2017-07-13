@@ -1,10 +1,10 @@
 #include "Lexer.h"
 #include <map>
 #include <iostream>
-
+#include <algorithm>
 namespace md {
 
-  const std::string keyChars = "-*#![]()`";
+  const std::string keyChars = "-*#![]()`=+";
 
   std::map<std::string, Token> tokenTable {
       {"#", TOK_H1},
@@ -19,9 +19,12 @@ namespace md {
       {"](", TOK_PAREN_MID},
       {")", TOK_PAREN_END},
       {"-", TOK_LIST},
+      {"+", TOK_LIST},
       {"`", TOK_QUOTE},
       {"*", TOK_ITALIC},
-      {"```", TOK_CODE}
+      {"```", TOK_CODE}, 
+      {"===", TOK_HORIZONTAL_RULE},
+      {"---", TOK_HORIZONTAL_RULE}
   };
 
   bool is_key_char(char c) {
@@ -46,6 +49,7 @@ namespace md {
 
     strBuffer += curChar;
 
+
     if (is_key_char(curChar) && tokenTable.find(strBuffer) != tokenTable.end()) {
       return tokenTable[strBuffer];
     }
@@ -59,6 +63,14 @@ namespace md {
       strBuffer += curChar;
     }
 
+     
+
+    if(strBuffer.size() > 2) {
+      auto it = std::unique(strBuffer.begin(),strBuffer.end());
+      if(*it == '=' || *it == '-') { 
+        return TOK_HORIZONTAL_RULE;
+      }
+    }
     return TOK_TEXT;
   }
 
