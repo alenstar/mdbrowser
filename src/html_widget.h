@@ -22,7 +22,9 @@ public:
 	html_widget(litehtml::context* html_context, browser_window* browser);
 	virtual ~html_widget();
 
-	void open_page(const litehtml::tstring& url);
+	void load_text_file(const litehtml::tstring& url, litehtml::tstring& out);
+	void open_url(const litehtml::tstring& url);
+	void open_page(const litehtml::tstring& html);
 	void update_cursor();
 	void on_parent_size_allocate(Gtk::Allocation allocation);
 
@@ -45,6 +47,6 @@ protected:
 	virtual void on_parent_changed(Gtk::Widget* previous_parent);
 
 private:
-	void load_text_file(const litehtml::tstring& url, litehtml::tstring& out);
+	
 	Gtk::Allocation get_parent_allocation();
 };

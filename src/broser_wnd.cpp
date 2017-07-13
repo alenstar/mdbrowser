@@ -108,7 +108,10 @@ bool browser_window::on_address_key_press(GdkEventKey *event) {
 
 void browser_window::open_url(const litehtml::tstring &url) {
     // m_address_bar.set_text(url);
-    m_html.open_page(url);
+    litehtml::tstring html;
+    m_html.load_text_file(url, html);
+    m_buffer->set_text(html);
+    m_html.open_page(html);
 }
 
 void browser_window::set_url(const litehtml::tstring &url) {

@@ -112,16 +112,22 @@ Gtk::Allocation html_widget::get_parent_allocation()
     return parent->get_allocation();
 }
 
-void html_widget::open_page(const litehtml::tstring& url)
+void html_widget::open_url(const litehtml::tstring& url)
 {
-	m_url 		= url;
-	m_base_url	= url;
+    m_url       = url;
+    m_base_url  = url;
 
-	std::string html;
-	load_text_file(url, html);
-	m_url 		= m_http.get_url();
-	m_base_url	= m_http.get_url();
-	m_browser->set_url(m_url);
+    std::string html;
+    load_text_file(url, html);
+
+    m_url       = m_http.get_url();
+    m_base_url  = m_http.get_url();
+    m_browser->set_url(m_url);
+    open_page(html);
+}
+
+void html_widget::open_page(const litehtml::tstring& html)
+{
 	m_html = litehtml::document::createFromString(html.c_str(), this, m_html_context);
 	if(m_html)
 	{
