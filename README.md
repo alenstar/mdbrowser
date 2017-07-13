@@ -1,4 +1,4 @@
-litebrowser-linux
+Markdown browser
 =================
 
-The simple browser based on litehtml engine (linux) 
+The simple markdown browser based on litehtml engine (linux) 

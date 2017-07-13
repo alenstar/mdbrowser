@@ -28,14 +28,14 @@ class Madown {
             , 0};
         string CSS;
         if (!IO::read_str_from_file("../static/" + theme + ".css", CSS)) {
-            std::cout << "fail to load css\n";
-            return base_css;
+            // std::cout << "fail to load css\n";
+            CSS = string(base_css);
         }
 
         string HTML;
         if (!IO::read_str_from_file("../static/base.html", HTML)) {
-            std::cout << "fail to load HTML\n";
-            return base_html;
+            // std::cout << "fail to load HTML\n";
+            HTML = string(base_html);
         }
 
         Parser parser([&s]() -> int { return s.get_char(); });

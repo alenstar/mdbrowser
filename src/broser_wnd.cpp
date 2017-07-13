@@ -2,9 +2,9 @@
 #include "browser_wnd.h"
 #include <gdk/gdkkeysyms.h>
 
-browser_window::browser_window(litehtml::context* html_context) : m_html(html_context, this), m_go_button("_Go", true)
+browser_window::browser_window(litehtml::context* html_context, int argc, const char** argv) : m_html(html_context, this), m_go_button("_Go", true)
 {
-	set_title("litehtml");
+	set_title("Markdown browser");
 
 	add(m_vbox);
 	m_vbox.show();
@@ -14,7 +14,7 @@ browser_window::browser_window(litehtml::context* html_context) : m_html(html_co
 
 	m_hbox.pack_start(m_address_bar, Gtk::PACK_EXPAND_WIDGET);
 	m_address_bar.show();
-	m_address_bar.set_text("http://www.litehtml.com/");
+	m_address_bar.set_text((argc > 1 && argv != NULL) ? argv[1]:"../README.md");
 
 	m_address_bar.add_events(Gdk::KEY_PRESS_MASK);
 	m_address_bar.signal_key_press_event().connect( sigc::mem_fun(*this, &browser_window::on_address_key_press), false );

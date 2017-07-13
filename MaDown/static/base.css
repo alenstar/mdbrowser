@@ -1,10 +1,10 @@
 body {
-    min-width: 1020px;
+    min-width: 640px;
     font: Helvetica, arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
     background-color: #fff;
 }
 #wrapper {
-    width: 800px;
+    width: 600px;
     margin: auto;
     padding: 0 30px 0 30px;
     border: 1px solid #ddd;

@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8)
 
 include(FindPkgConfig)
 
-project(litebrowser)
+project(mdbrowser)
 
 if (NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
     message(STATUS "No build type selected, default to Release")
@@ -37,7 +37,7 @@ add_custom_command(OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/src/master.css.inc
                    COMMAND cat ${CMAKE_CURRENT_SOURCE_DIR}/${LITEHTML_PATH}/include/master.css | xxd -i > ${CMAKE_CURRENT_SOURCE_DIR}/src/master.css.inc)
 set_source_files_properties(${CMAKE_CURRENT_SOURCE_DIR}/src/master.css.inc PROPERTIES GENERATED TRUE)
 
-add_executable(litebrowser ${SOURCE} ${CMAKE_CURRENT_SOURCE_DIR}/src/master.css.inc src/http_loader.h src/http_loader.cpp)
+add_executable(mdbrowser ${SOURCE} ${CMAKE_CURRENT_SOURCE_DIR}/src/master.css.inc src/http_loader.h src/http_loader.cpp)
 
-target_link_libraries(litebrowser litehtml MaDown ${LB_LIBS_LIBRARIES} PocoFoundation)
+target_link_libraries(mdbrowser litehtml MaDown ${LB_LIBS_LIBRARIES} PocoFoundation)
 
