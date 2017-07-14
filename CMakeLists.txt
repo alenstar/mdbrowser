@@ -39,5 +39,5 @@ set_source_files_properties(${CMAKE_CURRENT_SOURCE_DIR}/src/master.css.inc PROPE
 
 add_executable(mdbrowser ${SOURCE} ${CMAKE_CURRENT_SOURCE_DIR}/src/master.css.inc src/http_loader.h src/http_loader.cpp)
 
-target_link_libraries(mdbrowser litehtml MaDown ${LB_LIBS_LIBRARIES} PocoFoundation)
+target_link_libraries(mdbrowser litehtml MaDown ${LB_LIBS_LIBRARIES})
 

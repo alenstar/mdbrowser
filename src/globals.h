@@ -23,6 +23,6 @@
 #include <gdk/gdk.h>
 #include <cairomm/context.h>
 #include <curl/curl.h>
-#include <Poco/URI.h>
+// #include <Poco/URI.h>
 
 extern std::string urljoin(const std::string &base, const std::string &relative);

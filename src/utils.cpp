@@ -2,6 +2,7 @@
 
 std::string urljoin(const std::string &base, const std::string &relative)
 {
+    /*
     try
     {
         Poco::URI uri_base(base);
@@ -11,5 +12,6 @@ std::string urljoin(const std::string &base, const std::string &relative)
     {
         return relative;
     }
+     */
+    return  base + relative;
 }
-
