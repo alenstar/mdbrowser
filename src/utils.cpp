@@ -1,7 +1,6 @@
 #include "globals.h"
 
-std::string urljoin(const std::string &base, const std::string &relative)
-{
+std::string urljoin(const std::string &base, const std::string &relative) {
     /*
     try
     {
@@ -13,5 +12,5 @@ std::string urljoin(const std::string &base, const std::string &relative)
         return relative;
     }
      */
-    return  base + relative;
+    return base + relative;
 }
