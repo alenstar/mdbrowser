@@ -4,7 +4,7 @@
 #include <algorithm>
 namespace md {
 
-  const std::string keyChars = "-*#![]()`=+";
+  const std::string keyChars = "-*#![]()`=+_";
 
   std::map<std::string, Token> tokenTable {
       {"#", TOK_H1},
@@ -14,6 +14,7 @@ namespace md {
       {"#####", TOK_H5},
       {"######", TOK_H6},
       {"**", TOK_EMPHASIS},
+      {"__", TOK_EMPHASIS},
       {"![", TOK_IMAGE},
       {"[", TOK_LINK},
       {"](", TOK_PAREN_MID},
@@ -23,8 +24,8 @@ namespace md {
       {"`", TOK_QUOTE},
       {"*", TOK_ITALIC},
       {"```", TOK_CODE}, 
-      {"===", TOK_HORIZONTAL_RULE},
-      {"---", TOK_HORIZONTAL_RULE}
+      {"===", TOK_H1}, //TOK_HORIZONTAL_RULE},
+      {"---", TOK_H2} //TOK_HORIZONTAL_RULE}
   };
 
   bool is_key_char(char c) {
@@ -63,14 +64,14 @@ namespace md {
       strBuffer += curChar;
     }
 
-     
-
+/*     
     if(strBuffer.size() > 2) {
       auto it = std::unique(strBuffer.begin(),strBuffer.end());
       if(*it == '=' || *it == '-') { 
         return TOK_HORIZONTAL_RULE;
       }
     }
+*/
     return TOK_TEXT;
   }
 

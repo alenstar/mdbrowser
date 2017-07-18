@@ -3,7 +3,7 @@
 #include <unistd.h>
 
 #ifdef __cplusplus
-extern "c" {
+extern "C" {
 #endif
 
 extern char *load_file(const char *path, size_t *data_size);

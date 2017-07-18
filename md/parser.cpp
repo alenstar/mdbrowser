@@ -74,6 +74,6 @@ std::vector<std::string>&& split_line(const char* str, size_t size) {
  */
 
 int parser_md(const char* md, size_t size) {
-    LOGD("parser_md")
+    LOGD("parser_md");
     return 0;
 }

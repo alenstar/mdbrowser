@@ -1,6 +1,10 @@
 #include "browser_wnd.h"
 #include "globals.h"
 #include "logdef.h"
+
+#include "Madown.h"
+#include "TextStream.h"
+
 #include <gdk/gdkkeysyms.h>
 
 browser_window::browser_window(litehtml::context *html_context)
@@ -116,7 +120,13 @@ void browser_window::open_url(const litehtml::tstring &url) {
     litehtml::tstring html;
     m_html.load_text_file(url, html);
     m_buffer->set_text(html);
-    m_html.open_page(html);
+
+    {
+    md::Madown madown;
+    md::IO::StringStream ss(html);
+    std::string h = madown.render(ss);
+    m_html.open_page(h);
+    }
 }
 
 void browser_window::set_url(const litehtml::tstring &url) {

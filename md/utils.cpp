@@ -5,6 +5,9 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
+#ifdef __cplusplus 
+extern "C" {
+#endif
 // free memory by user
 char *load_file(const char *path, size_t *data_size)
 {
@@ -60,7 +63,7 @@ int save_file(const char *path, char* data, size_t size)
         return -1;
     }
 
-    fwrite(data, size, 1, fp);
+    size_t n = fwrite(data, size, 1, fp);
     if (n != size) {
         perror(path);
         fclose(fp);
@@ -69,3 +72,6 @@ int save_file(const char *path, char* data, size_t size)
     fclose(fp);
     return 0;
 }
+#ifdef __cplusplus 
+}
+#endif

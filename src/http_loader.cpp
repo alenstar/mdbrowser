@@ -31,12 +31,13 @@ size_t http_loader::curlWriteFunction(void *ptr, size_t size, size_t nmemb,
 static std::string loadfile(const char *file, void *stream) {
     std::string str;
     std::string f(file);
-    bool endwith = f.compare(f.size() - 3, 3, ".md") == 0;
-    if (endwith) {
-        md::IO::FileStream fs(file);
-        md::Madown madown;
-        str = madown.render(fs);
-    } else {
+    //bool endwith = f.compare(f.size() - 3, 3, ".md") == 0;
+    //if (endwith) {
+    //    md::IO::FileStream fs(file);
+
+        //md::Madown madown;
+        //str = madown.render(fs);
+    //} else {
         std::ifstream t(file);
         if (t) {
             // std::string str((std::istreambuf_iterator<char>(t)),
@@ -47,7 +48,7 @@ static std::string loadfile(const char *file, void *stream) {
             str.assign((std::istreambuf_iterator<char>(t)),
                        std::istreambuf_iterator<char>());
         }
-    }
+    //}
     if (str.size() > 0) {
         Glib::RefPtr<Gio::MemoryInputStream> *s =
             (Glib::RefPtr<Gio::MemoryInputStream> *)stream;
