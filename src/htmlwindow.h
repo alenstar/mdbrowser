@@ -30,17 +30,25 @@ protected:
 	Gtk::MenuBar 		m_menubar;
 
 	Gtk::Menu 			m_submenu_file;
-	Gtk::Menu 			m_submenu_help;
+	Gtk::MenuItem		m_menuitem_file;
 
 	Gtk::MenuItem		m_menuitem_open;
-	Gtk::MenuItem		m_menuitem_file;
 	Gtk::MenuItem		m_menuitem_exit;
 	Gtk::MenuItem		m_menuitem_save;
 	Gtk::MenuItem		m_menuitem_save_as;
 
-	Gtk::MenuItem		m_menuitem_about;
+	Gtk::Menu 			m_submenu_help;
 	Gtk::MenuItem		m_menuitem_help;
+	
+	Gtk::MenuItem		m_menuitem_about;
 	Gtk::MenuItem		m_menuitem_doc;
+
+	Gtk::Menu 			m_submenu_view;
+	Gtk::MenuItem		m_menuitem_view;
+	
+	Gtk::MenuItem		m_menuitem_view_md; // Markdown edit
+	Gtk::MenuItem		m_menuitem_view_render; // html render
+	Gtk::MenuItem		m_menuitem_view_live; // Markdown edit and render
 
 	Gtk::ScrolledWindow m_scrolled_md;
 	Gtk::ScrolledWindow m_scrolled_sv;

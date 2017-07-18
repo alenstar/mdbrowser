@@ -15,6 +15,7 @@ HtmlWindow::HtmlWindow(litehtml::context *html_context)
     add(m_vbox);
     m_vbox.show();
 
+    // File SubMenu
     m_menuitem_open.set_label("Open");
     m_menuitem_open.signal_activate().connect(
         sigc::mem_fun(*this, &HtmlWindow::on_file_open));
@@ -36,6 +37,19 @@ HtmlWindow::HtmlWindow(litehtml::context *html_context)
     m_menuitem_file.set_submenu(m_submenu_file);
     m_menubar.append(m_menuitem_file);
 
+    // View SubMenu
+    m_menuitem_view_md.set_label("Markdown");
+    m_submenu_view.append(m_menuitem_view_md);
+    m_menuitem_view_render.set_label("Html");
+    m_submenu_view.append(m_menuitem_view_render);
+    m_menuitem_view_live.set_label("Markdown & Html");
+    m_submenu_view.append(m_menuitem_view_live);
+
+    m_menuitem_view.set_label("View");
+    m_menuitem_view.set_submenu(m_submenu_view);
+    m_menubar.append(m_menuitem_view);
+    
+    // Help SubMenu
     m_menuitem_doc.set_label("Documents");
     m_submenu_help.append(m_menuitem_doc);
     m_menuitem_about.set_label("About");
@@ -45,6 +59,7 @@ HtmlWindow::HtmlWindow(litehtml::context *html_context)
     m_menuitem_help.set_submenu(m_submenu_help);
     m_menubar.append(m_menuitem_help);
 
+    // MenuBar
     m_vbox.pack_start(m_menubar, Gtk::PACK_SHRINK);
     m_menubar.show_all();
 
