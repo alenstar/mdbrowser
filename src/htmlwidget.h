@@ -1,13 +1,13 @@
 #pragma once
 
 #include <gtkmm/drawingarea.h>
-#include "../litehtml/containers/linux/container_linux.h"
-#include "http_loader.h"
+#include "container.h"
+#include "httploader.h"
 
-class browser_window;
+class HtmlWindow;
 
-class html_widget :		public Gtk::DrawingArea,
-						public container_linux
+class HtmlWidget :		public Gtk::DrawingArea,
+						public RendererContainer
 {
 	litehtml::tstring			m_url;
 	litehtml::tstring			m_base_url;
@@ -16,11 +16,11 @@ class html_widget :		public Gtk::DrawingArea,
 	int							m_rendered_width;
 	litehtml::tstring			m_cursor;
 	litehtml::tstring			m_clicked_url;
-	browser_window*				m_browser;
-	http_loader					m_http;
+	HtmlWindow*				m_browser;
+	HttpLoader					m_http;
 public:
-	html_widget(litehtml::context* html_context, browser_window* browser);
-	virtual ~html_widget();
+	HtmlWidget(litehtml::context* html_context, HtmlWindow* browser);
+	virtual ~HtmlWidget();
 
 	void load_text_file(const litehtml::tstring& url, litehtml::tstring& out);
 	void open_url(const litehtml::tstring& url);

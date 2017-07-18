@@ -1,5 +1,5 @@
 #include "globals.h"
-#include "browser_wnd.h"
+#include "htmlwindow.h"
 
 char master_css[] = 
 {
@@ -16,7 +16,7 @@ int main (int argc, char *argv[])
 	litehtml::context html_context;
 	html_context.load_master_stylesheet(master_css);
 
-	browser_window win(&html_context);
+	HtmlWindow win(&html_context);
     if(argc > 1 && argv != NULL) {
         std::string file = std::string(argv[1]);
         win.open_url(file);

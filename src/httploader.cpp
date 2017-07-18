@@ -1,4 +1,4 @@
-#include "http_loader.h"
+#include "httploader.h"
 #include "Madown.h"
 #include <fstream>
 #include <iostream>
@@ -8,19 +8,19 @@
 #include <streambuf>
 #include <string>
 
-http_loader::http_loader() {
+HttpLoader::HttpLoader() {
     m_curl = curl_easy_init();
     curl_easy_setopt(m_curl, CURLOPT_FOLLOWLOCATION, 1L);
     curl_easy_setopt(m_curl, CURLOPT_TCP_KEEPALIVE, 1L);
     curl_easy_setopt(m_curl, CURLOPT_TCP_KEEPIDLE, 120L);
     curl_easy_setopt(m_curl, CURLOPT_TCP_KEEPINTVL, 60L);
     curl_easy_setopt(m_curl, CURLOPT_WRITEFUNCTION,
-                     http_loader::curlWriteFunction);
+                     HttpLoader::curlWriteFunction);
 }
 
-http_loader::~http_loader() { curl_easy_cleanup(m_curl); }
+HttpLoader::~HttpLoader() { curl_easy_cleanup(m_curl); }
 
-size_t http_loader::curlWriteFunction(void *ptr, size_t size, size_t nmemb,
+size_t HttpLoader::curlWriteFunction(void *ptr, size_t size, size_t nmemb,
                                       void *stream) {
     Glib::RefPtr<Gio::MemoryInputStream> *s =
         (Glib::RefPtr<Gio::MemoryInputStream> *)stream;
@@ -59,7 +59,7 @@ static std::string loadfile(const char *file, void *stream) {
 }
 
 Glib::RefPtr<Gio::InputStream>
-http_loader::load_file(const litehtml::tstring &url) {
+HttpLoader::load_file(const litehtml::tstring &url) {
     m_url = url;
 
     Glib::RefPtr<Gio::MemoryInputStream> stream =

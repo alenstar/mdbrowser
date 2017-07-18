@@ -16,15 +16,15 @@ set(CMAKE_C_FLAGS_RELEASE "-std=c++11 -O3")
 
 set(LITEBROWSER_PATH src)
 set(LITEHTML_PATH litehtml)
-set(CONTAINER_PATH ${LITEHTML_PATH}/containers/linux)
+#set(CONTAINER_PATH ${LITEHTML_PATH}/containers/linux)
 
 pkg_check_modules(LB_LIBS REQUIRED fontconfig gdkmm-3.0 gtkmm-3.0 libcurl cairo gtksourceviewmm-3.0)
 
 set(SOURCE  ${LITEBROWSER_PATH}/main.cpp
             ${LITEBROWSER_PATH}/utils.cpp
-            ${LITEBROWSER_PATH}/html_widget.cpp
-            ${CONTAINER_PATH}/container_linux.cpp
-            ${LITEBROWSER_PATH}/broser_wnd.cpp
+            ${LITEBROWSER_PATH}/htmlwidget.cpp
+            ${LITEBROWSER_PATH}/container.cpp
+            ${LITEBROWSER_PATH}/htmlwindow.cpp
     )
 
 include_directories(${LITEHTML_PATH}/include ${LB_LIBS_INCLUDE_DIRS} MaDown/src)
@@ -38,7 +38,7 @@ add_custom_command(OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/src/master.css.inc
                    COMMAND cat ${CMAKE_CURRENT_SOURCE_DIR}/${LITEHTML_PATH}/include/master.css | xxd -i > ${CMAKE_CURRENT_SOURCE_DIR}/src/master.css.inc)
 set_source_files_properties(${CMAKE_CURRENT_SOURCE_DIR}/src/master.css.inc PROPERTIES GENERATED TRUE)
 
-add_executable(mdbrowser ${SOURCE} ${CMAKE_CURRENT_SOURCE_DIR}/src/master.css.inc src/http_loader.h src/http_loader.cpp)
+add_executable(mdbrowser ${SOURCE} ${CMAKE_CURRENT_SOURCE_DIR}/src/master.css.inc src/httploader.h src/httploader.cpp)
 
 target_link_libraries(mdbrowser litehtml MaDown ${LB_LIBS_LIBRARIES})
 

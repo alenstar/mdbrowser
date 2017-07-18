@@ -1,4 +1,4 @@
-#include "browser_wnd.h"
+#include "htmlwindow.h"
 #include "globals.h"
 #include "logdef.h"
 
@@ -7,7 +7,7 @@
 
 #include <gdk/gdkkeysyms.h>
 
-browser_window::browser_window(litehtml::context *html_context)
+HtmlWindow::HtmlWindow(litehtml::context *html_context)
     : m_html(html_context, this) //, m_go_button("_Go", true)
 {
     set_title("Markdown browser");
@@ -17,19 +17,19 @@ browser_window::browser_window(litehtml::context *html_context)
 
     m_menuitem_open.set_label("Open");
     m_menuitem_open.signal_activate().connect(
-        sigc::mem_fun(*this, &browser_window::on_file_open));
+        sigc::mem_fun(*this, &HtmlWindow::on_file_open));
     m_submenu_file.append(m_menuitem_open);
     m_menuitem_save.set_label("Save");
     m_menuitem_save.signal_activate().connect(
-        sigc::mem_fun(*this, &browser_window::on_file_save));
+        sigc::mem_fun(*this, &HtmlWindow::on_file_save));
     m_submenu_file.append(m_menuitem_save);
     m_menuitem_save_as.set_label("Save As ...");
     m_menuitem_save_as.signal_activate().connect(
-        sigc::mem_fun(*this, &browser_window::on_file_save_as));
+        sigc::mem_fun(*this, &HtmlWindow::on_file_save_as));
     m_submenu_file.append(m_menuitem_save_as);
     m_menuitem_exit.set_label("Exit");
     m_menuitem_exit.signal_activate().connect(
-        sigc::mem_fun(*this, &browser_window::on_file_exit));
+        sigc::mem_fun(*this, &HtmlWindow::on_file_exit));
     m_submenu_file.append(m_menuitem_exit);
 
     m_menuitem_file.set_label("File");
@@ -81,10 +81,10 @@ browser_window::browser_window(litehtml::context *html_context)
 
     // m_address_bar.add_events(Gdk::KEY_PRESS_MASK);
     // m_address_bar.signal_key_press_event().connect( sigc::mem_fun(*this,
-    // &browser_window::on_address_key_press), false );
+    // &HtmlWindow::on_address_key_press), false );
 
     // m_go_button.signal_clicked().connect( sigc::mem_fun(*this,
-    // &browser_window::on_go_clicked) );
+    // &HtmlWindow::on_go_clicked) );
 
     // m_hbox.pack_start(m_go_button, Gtk::PACK_SHRINK);
     // m_go_button.show();
@@ -98,14 +98,14 @@ browser_window::browser_window(litehtml::context *html_context)
     set_default_size(800, 600);
 }
 
-browser_window::~browser_window() {}
+HtmlWindow::~HtmlWindow() {}
 
-void browser_window::on_go_clicked() {
+void HtmlWindow::on_go_clicked() {
     litehtml::tstring url = m_address_bar.get_text();
     m_html.open_page(url);
 }
 
-bool browser_window::on_address_key_press(GdkEventKey *event) {
+bool HtmlWindow::on_address_key_press(GdkEventKey *event) {
     if (event->keyval == GDK_KEY_Return) {
         m_address_bar.select_region(0, -1);
         on_go_clicked();
@@ -115,7 +115,7 @@ bool browser_window::on_address_key_press(GdkEventKey *event) {
     return false;
 }
 
-void browser_window::open_url(const litehtml::tstring &url) {
+void HtmlWindow::open_url(const litehtml::tstring &url) {
     // m_address_bar.set_text(url);
     litehtml::tstring html;
     m_html.load_text_file(url, html);
@@ -129,11 +129,11 @@ void browser_window::open_url(const litehtml::tstring &url) {
     }
 }
 
-void browser_window::set_url(const litehtml::tstring &url) {
+void HtmlWindow::set_url(const litehtml::tstring &url) {
     m_address_bar.set_text(url);
 }
 
-void browser_window::on_file_open() {
+void HtmlWindow::on_file_open() {
     Gtk::FileChooserDialog dialog("Please choose a file",
                                   Gtk::FILE_CHOOSER_ACTION_OPEN);
     // Add response buttons the the dialog:
@@ -164,6 +164,6 @@ void browser_window::on_file_open() {
         default: { LOGE("Unexpected button clicked."); break; }
     }
 }
-void browser_window::on_file_exit() { this->close() ; }
-void browser_window::on_file_save() { LOGD("on_file_open"); }
-void browser_window::on_file_save_as() { LOGD("on_file_open"); }
+void HtmlWindow::on_file_exit() { this->close() ; }
+void HtmlWindow::on_file_save() { LOGD("on_file_open"); }
+void HtmlWindow::on_file_save_as() { LOGD("on_file_open"); }
