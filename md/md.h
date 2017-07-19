@@ -181,10 +181,10 @@ class Parser {
         }
         
         while (is_key_char(cur) && is_key_char(nxt)) {
-            str.append(cur);
+            str += cur;
             next_token();
         }
-        str.append(cur);
+        str += cur;
 
         if (tokenTable.find(str) != tokenTable.end()) {
             //return tokenTable[strBuffer];
