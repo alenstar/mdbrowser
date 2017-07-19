@@ -5,6 +5,7 @@
 #include "logdef.h"
 #include "parser.h"
 #include "utils.h"
+#include "md.h"
 
 int main(int argc, const char **argv) {
 
@@ -22,5 +23,17 @@ int main(int argc, const char **argv) {
             free((void *)filebuf);
         }
     }
+    Parser parser("# hello1\n## hello2\n1. Golang\n2. Python\n3. Java\n4. Scala\n5. Kotlin");
+    {
+        std::string out;
+        parser.render(out);
+        LOGD("parser: %s", out.c_str());
+    }
+    Value v("hello", "<p>", "</p>");
+    v.append(new Value("string", "<em>", "</em>"));
+    v.append("world");
+    std::string str;
+    v.render(str);
+    LOGD("render: %s", str.c_str());
     return 0;
 }
