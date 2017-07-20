@@ -137,10 +137,13 @@ void HtmlWindow::open_url(const litehtml::tstring &url) {
     m_buffer->set_text(html);
 
     {
-    md::Madown madown;
-    md::IO::StringStream ss(html);
-    std::string h = madown.render(ss);
-    m_html.open_page(h);
+    // md::Madown madown;
+    // md::IO::StringStream ss(html);
+    // std::string h = madown.render(ss);
+
+    int rc =  commonmark_parser(html.c_str(), html.size());
+    //std::string h(html);
+    //m_html.open_page(h);
     }
 }
 

@@ -5,6 +5,11 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
+#if defined(_WIN32) && !defined(__CYGWIN__)
+#include <io.h>
+#include <fcntl.h>
+#endif
+
 #ifdef __cplusplus 
 extern "C" {
 #endif

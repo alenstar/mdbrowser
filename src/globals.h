@@ -15,7 +15,7 @@
 #include <gtkmm.h>
 #include <gtkmm/application.h>
 #include <gtkmm/window.h>
-#include "../litehtml/include/litehtml.h"
+#include "litehtml.h"
 #include <ft2build.h>
 #include FT_FREETYPE_H
 #include <fontconfig/fontconfig.h>
@@ -26,3 +26,4 @@
 // #include <Poco/URI.h>
 
 extern std::string urljoin(const std::string &base, const std::string &relative);
+extern int commonmark_parser(const char *buffer, size_t bytes);
