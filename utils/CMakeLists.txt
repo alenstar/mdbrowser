@@ -1,9 +1,9 @@
 # Build steps
 cmake_minimum_required(VERSION 2.6)
-project(md)
+project(utils)
 
 #file(GLOB_RECURSE APP_SRC_FILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.c)
-set(MD_SRC_FILES 
+set(UTILS_SRC_FILES 
     md.cpp
     utils.cpp
 		parser.cpp)
@@ -11,8 +11,8 @@ set(MD_SRC_FILES
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 include_directories(${PROJECT_SOURCE_DIR}/src)
 include_directories(${PROJECT_SOURCE_DIR}/include)
-#add_dependencies(md tinyxml2)
-add_library(md STATIC ${MD_SRC_FILES})
+#add_dependencies(utils tinyxml2)
+add_library(utils STATIC ${UTILS_SRC_FILES})
 
-add_executable(mdexample example.cpp ${MD_SRC_FILES})
-target_link_libraries(mdexample m pthread)
+add_executable(example-utils example.cpp ${UTILS_SRC_FILES})
+target_link_libraries(example-utils m pthread)

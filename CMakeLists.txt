@@ -31,7 +31,7 @@ include_directories(${LITEHTML_PATH}/include ${LB_LIBS_INCLUDE_DIRS} MaDown/src)
 
 add_subdirectory(${LITEHTML_PATH})
 add_subdirectory(MaDown)
-add_subdirectory(md)
+add_subdirectory(utils)
 
 find_program(XXD_COMMAND xxd)
 add_custom_command(OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/src/master.css.inc
