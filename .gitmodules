@@ -1,3 +1,6 @@
 [submodule "litehtml"]
 	path = litehtml
 	url = https://github.com/tordex/litehtml.git
+[submodule "cmark"]
+	path = cmark
+	url = https://github.com/github/cmark.git

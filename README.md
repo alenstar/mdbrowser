@@ -7,4 +7,8 @@ The simple markdown browser based on litehtml engine (linux)
 
 ```shell
 git submodule update --init --recursive
+mkdir build
+cd build
+cmake ..
+make 
 ```
