@@ -21,16 +21,17 @@ set(LITEHTML_PATH litehtml)
 pkg_check_modules(LB_LIBS REQUIRED fontconfig gdkmm-3.0 gtkmm-3.0 libcurl cairo gtksourceviewmm-3.0)
 
 set(SOURCE  ${LITEBROWSER_PATH}/main.cpp
-            ${LITEBROWSER_PATH}/utils.cpp
             ${LITEBROWSER_PATH}/htmlwidget.cpp
             ${LITEBROWSER_PATH}/container.cpp
             ${LITEBROWSER_PATH}/htmlwindow.cpp
+            ${LITEBROWSER_PATH}/globals.cpp
     )
 
 include_directories(
+${CMAKE_CURRENT_SOURCE_DIR}
+${CMAKE_CURRENT_BINARY_DIR}
 ${LITEHTML_PATH}/include 
 ${LB_LIBS_INCLUDE_DIRS} 
-MaDown/src 
 cmark/src 
 cmark/extensions
 ${CMAKE_CURRENT_BINARY_DIR}/cmark/src
@@ -38,7 +39,6 @@ ${CMAKE_CURRENT_BINARY_DIR}/cmark/extensions
 )
 
 add_subdirectory(${LITEHTML_PATH})
-add_subdirectory(MaDown)
 add_subdirectory(utils)
 
 set(CMARK_TESTS OFF CACHE BOOL "")
@@ -46,11 +46,25 @@ set(CMARK_STATIC ON CACHE BOOL "")
 add_subdirectory(cmark)
 
 find_program(XXD_COMMAND xxd)
-add_custom_command(OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/src/master.css.inc
-                   COMMAND cat ${CMAKE_CURRENT_SOURCE_DIR}/${LITEHTML_PATH}/include/master.css | xxd -i > ${CMAKE_CURRENT_SOURCE_DIR}/src/master.css.inc)
-set_source_files_properties(${CMAKE_CURRENT_SOURCE_DIR}/src/master.css.inc PROPERTIES GENERATED TRUE)
+add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/master.css.inc
+                   COMMAND cat ${CMAKE_CURRENT_SOURCE_DIR}/static/master.css | xxd -i > ${CMAKE_CURRENT_BINARY_DIR}/master.css.inc)
+set_source_files_properties(${CMAKE_CURRENT_BINARY_DIR}/src/master.css.inc PROPERTIES GENERATED TRUE)
 
-add_executable(mdbrowser ${SOURCE} ${CMAKE_CURRENT_SOURCE_DIR}/src/master.css.inc src/httploader.h src/httploader.cpp)
+add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/base.css.inc
+                   COMMAND cat ${CMAKE_CURRENT_SOURCE_DIR}/static/base.css | xxd -i > ${CMAKE_CURRENT_BINARY_DIR}/base.css.inc)
+set_source_files_properties(${CMAKE_CURRENT_BINARY_DIR}/base.css.inc PROPERTIES GENERATED TRUE)
 
-target_link_libraries(mdbrowser litehtml libcmark-gfm_static libcmark-gfmextensions_static ${LB_LIBS_LIBRARIES})
+add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/base.html.inc
+                   COMMAND cat ${CMAKE_CURRENT_SOURCE_DIR}/static/base.html | xxd -i > ${CMAKE_CURRENT_BINARY_DIR}/base.html.inc)
+set_source_files_properties(${CMAKE_CURRENT_BINARY_DIR}/base.html.inc PROPERTIES GENERATED TRUE)
+
+add_executable(mdbrowser 
+  ${CMAKE_CURRENT_BINARY_DIR}/master.css.inc 
+  ${CMAKE_CURRENT_BINARY_DIR}/base.css.inc 
+  ${CMAKE_CURRENT_BINARY_DIR}/base.html.inc
+  src/httploader.h 
+  src/httploader.cpp
+  ${SOURCE} )
+
+target_link_libraries(mdbrowser litehtml utils libcmark-gfm_static libcmark-gfmextensions_static ${LB_LIBS_LIBRARIES})
 
