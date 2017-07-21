@@ -25,5 +25,21 @@
 #include <curl/curl.h>
 // #include <Poco/URI.h>
 
-extern std::string urljoin(const std::string &base, const std::string &relative);
-extern int commonmark_parser(const char *buffer, size_t bytes);
+// extern std::string urljoin(const std::string &base, const std::string &relative);
+
+inline std::string urljoin(const std::string &base, const std::string &relative) {
+    /*
+    try
+    {
+        Poco::URI uri_base(base);
+        Poco::URI uri_res(uri_base, relative);
+        return uri_res.toString();
+    } catch (...)
+    {
+        return relative;
+    }
+     */
+    return base + relative;
+}
+
+extern bool render_markdown_to_html(const std::string &in, std::string &out);

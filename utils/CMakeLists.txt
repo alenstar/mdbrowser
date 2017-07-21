@@ -4,13 +4,13 @@ project(utils)
 
 #file(GLOB_RECURSE APP_SRC_FILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.c)
 set(UTILS_SRC_FILES 
-    md.cpp
     utils.cpp
-		parser.cpp)
+	parser.cpp)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
-include_directories(${PROJECT_SOURCE_DIR}/src)
-include_directories(${PROJECT_SOURCE_DIR}/include)
+include_directories(
+    ${PROJECT_SOURCE_DIR}/src 
+    )
 #add_dependencies(utils tinyxml2)
 add_library(utils STATIC ${UTILS_SRC_FILES})
 

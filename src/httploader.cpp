@@ -1,5 +1,4 @@
 #include "httploader.h"
-#include "Madown.h"
 #include <fstream>
 #include <iostream>
 #include <memory>
@@ -33,10 +32,6 @@ static std::string loadfile(const char *file, void *stream) {
     std::string f(file);
     //bool endwith = f.compare(f.size() - 3, 3, ".md") == 0;
     //if (endwith) {
-    //    md::IO::FileStream fs(file);
-
-        //md::Madown madown;
-        //str = madown.render(fs);
     //} else {
         std::ifstream t(file);
         if (t) {

@@ -2,8 +2,7 @@
 #include "globals.h"
 #include "logdef.h"
 
-#include "Madown.h"
-#include "TextStream.h"
+#include "utils/utils.h"
 
 #include <gdk/gdkkeysyms.h>
 
@@ -140,10 +139,13 @@ void HtmlWindow::open_url(const litehtml::tstring &url) {
     // md::Madown madown;
     // md::IO::StringStream ss(html);
     // std::string h = madown.render(ss);
-
-    int rc =  commonmark_parser(html.c_str(), html.size());
+    std::string out;
+    if(render_markdown_to_html(html, out)){
+        m_html.open_page(out);
+        LOGD("render_markdown_to_html ok");
+    }
     //std::string h(html);
-    //m_html.open_page(h);
+    //
     }
 }
 

@@ -1,9 +1,11 @@
+#include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
+#include "logdef.h"
 
 #if defined(_WIN32) && !defined(__CYGWIN__)
 #include <io.h>
@@ -13,6 +15,7 @@
 #ifdef __cplusplus 
 extern "C" {
 #endif
+
 // free memory by user
 char *load_file(const char *path, size_t *data_size)
 {
@@ -77,6 +80,7 @@ int save_file(const char *path, char* data, size_t size)
     fclose(fp);
     return 0;
 }
+
 #ifdef __cplusplus 
 }
 #endif
