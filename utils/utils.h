@@ -7,7 +7,7 @@ extern "C" {
 #endif
 
 extern char *load_file(const char *path, size_t *data_size);
-extern int save_file(const char *path, char* data, size_t size);
+extern int save_file(const char *path, const char* data, size_t size);
 
 #ifdef __cplusplus
 }

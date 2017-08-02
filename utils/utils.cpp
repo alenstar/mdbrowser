@@ -62,7 +62,7 @@ char *load_file(const char *path, size_t *data_size)
     return buffer;
 }
 
-int save_file(const char *path, char* data, size_t size)
+int save_file(const char *path, const char* data, size_t size)
 {
     FILE *fp = NULL;
     fp = fopen(path, "wb");

@@ -19,6 +19,11 @@ private:
 	void on_file_save();
 	void on_file_save_as();
 
+	void on_show_markdown();
+	void on_show_html();
+	void on_show_markdown_and_html();
+
+	void change_view(bool md, bool sv);
 protected:
 	HtmlWidget			m_html;
 	Gtk::Entry			m_address_bar;
@@ -55,5 +60,8 @@ protected:
 
 	Gsv::View 			m_source_view ;
 	Glib::RefPtr<Gsv::Buffer> 		m_buffer;
+
+private:
+	std::string m_filename;
 };
 
